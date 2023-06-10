@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("select u from User u where not u.number is null order by u.number")
     List<User> getQueue();
+
+    @Query("select max(u.number) from User u where not u.number is null")
+    List<User> getLast();
 }
