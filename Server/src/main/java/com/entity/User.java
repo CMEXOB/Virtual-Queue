@@ -18,9 +18,11 @@ public class User {
     private Long number;
 
     public User() {
+        number = 0L;
     }
 
     public User(String name) {
         this.name = name;
+        number = 0L;
     }
 }

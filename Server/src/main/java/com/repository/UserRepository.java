@@ -11,12 +11,12 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where u.name=?1")
     User getUserById(String id);
 
-    @Query("select u from User u where not u.number is null order by u.number")
+    @Query("select u from User u where not u.number = 0 order by u.number")
     List<User> getQueue();
 
-    @Query("select max(u.number) from User u where not u.number is null")
+    @Query("select u from User u where not u.number = 0 and u.number in (select max(u.number) from User u where not u.number = 0)")
     User getLast();
 
-    @Query("select u from User u where not u.number is null and u.number > ?1 order by u.number")
+    @Query("select u from User u where not u.number = 0 and u.number > ?1 order by u.number")
     List<User> getQueueAfter(Long number);
 }
