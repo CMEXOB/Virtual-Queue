@@ -23,8 +23,4 @@ public class UserService {
     public void deleteUser(User user){
         userRepository.delete(userRepository.getUserById(user.getName()));
     }
-    public User getUser(String name) {
-        User user = userRepository.getUserById(name);
-        return user;
-    }
 }
