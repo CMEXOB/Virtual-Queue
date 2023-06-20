@@ -38,8 +38,8 @@ function App() {
           <div className="App">
               <BrowserRouter>
                   <Routes>
-                      <Route path="/login" element={<Login url={url} />}/>
-                      <Route path="/queue" element={<Queue url={url} socketEndpoint={socketEndpoint}/>}/>
+                      <Route path="/login" element={<Login/>}/>
+                      <Route path="/queue" element={<Queue/>}/>
                       <Route
                           path="*"
                           element={<Navigate to="/login" replace />}

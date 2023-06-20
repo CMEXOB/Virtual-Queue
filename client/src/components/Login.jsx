@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import {UserContext} from "../context";
 
 const Login = (props) => {
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser, url} = useContext(UserContext)
     const navigate  = useNavigate();
     const logIn =  (e) => {
         e.preventDefault()
         let json = JSON.stringify({'name':user.name})
-        fetch(props.url+'/login',{
+        fetch(url+'/login',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

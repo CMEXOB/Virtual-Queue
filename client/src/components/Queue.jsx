@@ -5,15 +5,15 @@ import {UserContext} from "../context";
 import ItemList from "./ItemList";
 import Navbar from "./Navbar";
 
-const Queue = (props) => {
-    let sock = new SockJS(props.url + props.socketEndpoint)
+const Queue = () => {
+    const {user, setUser, url, socketEndpoint} = useContext(UserContext)
+    let sock = new SockJS(url + socketEndpoint)
     let stompClient = over(sock)
     const [queue, setQueue] = useState([])
-    const {user, setUser} = useContext(UserContext)
     useEffect(() =>{
         stompClient.connect({}, onConnect)
 
-        fetch(props.url + '/queue')
+        fetch(url + '/queue')
             .then(response => response.json())
             .then(data => {
                 setQueue(data)
