@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {UserContext} from "../context";
 
 const Login = (props) => {
-    const {user, setUser, url} = useContext(UserContext)
+    const {user, setUser, url, setIsAuth} = useContext(UserContext)
     const navigate  = useNavigate();
     const logIn =  (e) => {
         e.preventDefault()
@@ -22,6 +22,7 @@ const Login = (props) => {
                     alert("User " + user.name + " already exist!")
                 }
                 else {
+                    setIsAuth(true)
                     navigate("/queue");
                 }
             })

@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 const Navbar = ({stompClient}) => {
 
-    const {user, setUser, url} = useContext(UserContext)
+    const {user, setUser, url, setIsAuth} = useContext(UserContext)
     const navigate  = useNavigate()
 
     const takeQueue =  () => {
@@ -25,6 +25,7 @@ const Navbar = ({stompClient}) => {
             .then(response => response.json())
             .then(data => {
                 setUser({name:'', number:0})
+                setIsAuth(false)
                 navigate("/login")
             })
     }
