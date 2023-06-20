@@ -7,8 +7,8 @@ import {UserContext} from "./context";
 function App() {
   const [user, setUser] = useState({name:'', number:0})
     const [isAuth, setIsAuth] = useState(false)
-    const socketEndpoint = '/virtual-queue-websocket'
     const url = "http://localhost:8080"
+    const socketEndpoint = '/virtual-queue-websocket'
 
     useEffect(() => {
         const name = localStorage.getItem('name')
@@ -30,7 +30,9 @@ function App() {
       <UserContext.Provider value={
           {
               user,
-              setUser
+              setUser,
+              url,
+              socketEndpoint
           }
       }>
           <div className="App">
