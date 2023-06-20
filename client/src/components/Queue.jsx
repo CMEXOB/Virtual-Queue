@@ -4,9 +4,10 @@ import SockJS from 'sockjs-client';
 import {UserContext} from "../context";
 import ItemList from "./ItemList";
 import Navbar from "./Navbar";
+import Loader from "./Loader";
 
 const Queue = () => {
-    const {user, setUser, url, socketEndpoint} = useContext(UserContext)
+    const {user, setUser, url, socketEndpoint, setIsLoading, isLoading} = useContext(UserContext)
     let sock = new SockJS(url + socketEndpoint)
     let stompClient = over(sock)
     const [queue, setQueue] = useState([])
@@ -17,6 +18,7 @@ const Queue = () => {
             .then(response => response.json())
             .then(data => {
                 setQueue(data)
+                setIsLoading(false)
             })
         return () => {
             sock.close()
@@ -69,6 +71,10 @@ const Queue = () => {
                 return {name: oldUser.name, number: 0}
             })
         }
+    }
+
+    if (isLoading) {
+        return <Loader/>
     }
 
     return (

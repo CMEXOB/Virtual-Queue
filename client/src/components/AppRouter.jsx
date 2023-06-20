@@ -3,14 +3,9 @@ import {UserContext} from "../context";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "./Login";
 import Queue from "./Queue";
-import Loader from "./Loader";
 
 const AppRouter = () => {
-    const {isAuth, isLoading} = useContext(UserContext)
-
-    if (isLoading) {
-        return <Loader/>
-    }
+    const {isAuth} = useContext(UserContext)
 
     return (
         isAuth
