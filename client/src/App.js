@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import Login from "./components/Login";
-import Queue from "./components/Queue";
-import './styles/App.css'
+import {BrowserRouter} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 import {UserContext} from "./context";
 import AppRouter from "./components/AppRouter";
 function App() {

@@ -3,7 +3,7 @@ import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 import {UserContext} from "../context";
 import ItemList from "./ItemList";
-import Navbar from "./Navbar";
+import NaviBar from "./NaviBar";
 import Loader from "./Loader";
 
 const Queue = () => {
@@ -65,8 +65,6 @@ const Queue = () => {
             return newQueue
         })
         if(leaveFromQueue.name === user.name) {
-            console.log(leaveFromQueue.name)
-            console.log(user.name)
             setUser(oldUser => {
                 return {name: oldUser.name, number: 0}
             })
@@ -79,8 +77,7 @@ const Queue = () => {
 
     return (
         <div>
-            <div>User: {user.name}</div>
-            <Navbar user={user} stompClient={stompClient}/>
+            <NaviBar user={user} stompClient={stompClient}/>
             <ItemList queue={queue}/>
         </div>
     );
