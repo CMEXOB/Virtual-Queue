@@ -1,10 +1,11 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import {UserContext} from "../context";
-import {Button, Form} from "react-bootstrap";
+import {Alert, Button, Form} from "react-bootstrap";
 
 const Login = (props) => {
     const {user, setUser, url, setIsAuth, setIsLoading} = useContext(UserContext)
+    const [isAlert, setIsAlert] = useState(false)
     const navigate  = useNavigate();
     const logIn =  (e) => {
         e.preventDefault()
@@ -20,7 +21,7 @@ const Login = (props) => {
             .then(response => response.json())
             .then(data => {
                 if(data === "FORBIDDEN"){
-                    alert("User " + user.name + " already exist!")
+                    setIsAlert(true)
                 }
                 else {
                     setIsAuth(true)
@@ -31,6 +32,12 @@ const Login = (props) => {
     }
     return (
         <Form className="login-form position-absolute top-50 start-50 translate-middle">
+            {isAlert ?
+                <Alert key={"danger"} variant={"danger"}>
+                    This name is already taken!
+                </Alert>
+                : null
+            }
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Your name:</Form.Label>
                 <Form.Control type="text" placeholder="Enter your name"
