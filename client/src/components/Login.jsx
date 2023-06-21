@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import {UserContext} from "../context";
+import {Button, Form} from "react-bootstrap";
 
 const Login = (props) => {
     const {user, setUser, url, setIsAuth, setIsLoading} = useContext(UserContext)
@@ -29,19 +30,15 @@ const Login = (props) => {
             })
     }
     return (
-        <div>
-            <form  style={{margin : "100px", textAlign: "center"}}>
-                <div>Your name:</div>
-                <div>
-                    <input
-                        value={user.name}
-                        onChange={e=> setUser({name:e.target.value, number:user.number})}
-                        type="text"
-                    />
-                    <button onClick={logIn}>Login</button>
-                </div>
-            </form>
-        </div>
+        <Form className="login-form position-absolute top-50 start-50 translate-middle">
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Your name:</Form.Label>
+                <Form.Control type="text" placeholder="Enter your name"
+                              value={user.name}
+                              onChange={e=> setUser({name:e.target.value, number:user.number})}/>
+            </Form.Group>
+            <Button className="w-100" variant="primary" onClick={logIn}>Login</Button>
+        </Form>
     );
 };
 
