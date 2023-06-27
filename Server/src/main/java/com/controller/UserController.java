@@ -35,15 +35,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else {
-
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-    }
-
-    @ExceptionHandler( MethodArgumentNotValidException.class)
-    protected ResponseEntity handleDMSRESTException(MethodArgumentNotValidException objException)
-    {
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @CrossOrigin
