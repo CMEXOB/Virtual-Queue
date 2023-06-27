@@ -17,7 +17,9 @@ public class MappingService {
     public User fromDTOToEntity(UserDTO userDTO){
         User returned = new User();
         returned.setName(userDTO.getName());
-        returned.setNumber(userDTO.getNumber());
+        if(userDTO.getNumber() != null){
+            returned.setNumber(userDTO.getNumber());
+        }
         return returned;
     }
 }
