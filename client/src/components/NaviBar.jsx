@@ -23,11 +23,13 @@ const NaviBar = ({stompClient}) => {
             },
             body: JSON.stringify(user)
         })
-            .then(response => response.json())
-            .then(data => {
-                setUser({name:'', number:0})
-                setIsAuth(false)
-                navigate("/login")
+            .then(response =>
+            {
+                if(response.status === 200) {
+                    setUser({name: '', number: 0})
+                    setIsAuth(false)
+                    navigate("/login")
+                }
             })
     }
 
