@@ -20,26 +20,30 @@ public class QueueService {
 
     public User takeQueue(String userName){
         User user = userRepository.getUserById(userName);
-        User lastUser = userRepository.getLast();
-        if(lastUser == null){
-            user.setNumber(1L);
+        synchronized(this){
+            User lastUser = userRepository.getLast();
+            if(lastUser == null){
+                user.setNumber(1L);
+            }
+            else {
+                user.setNumber(lastUser.getNumber() + 1);
+            }
+            userRepository.save(user);
         }
-        else {
-            user.setNumber(lastUser.getNumber() + 1);
-        }
-        userRepository.save(user);
         return user;
     }
     public void leaveQueue(String userName){
         User user = userRepository.getUserById(userName);
 
-        List<User> users= userRepository.getQueueAfter(user.getNumber());
-        for(User temp : users){
-            temp.setNumber(temp.getNumber() - 1);
-            userRepository.save(temp);
+        synchronized(this) {
+            List<User> users = userRepository.getQueueAfter(user.getNumber());
+            for (User temp : users) {
+                temp.setNumber(temp.getNumber() - 1);
+                userRepository.save(temp);
+            }
+            user.setNumber(0L);
+            userRepository.save(user);
         }
-        user.setNumber(0L);
-        userRepository.save(user);
     }
     public boolean isInQueue(String userName){
         User user = userRepository.getUserById(userName);

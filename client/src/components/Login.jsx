@@ -6,6 +6,7 @@ import {Alert, Button, Form} from "react-bootstrap";
 const Login = (props) => {
     const {user, setUser, url, setIsAuth, setIsLoading} = useContext(UserContext)
     const [isAlert, setIsAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     const navigate  = useNavigate();
     const logIn =  (e) => {
         e.preventDefault()
@@ -18,24 +19,27 @@ const Login = (props) => {
             },
             body: json
         })
-            .then(response => response.json())
-            .then(data => {
-                if(data === "FORBIDDEN"){
-                    setIsAlert(true)
-                }
-                else {
-                    setIsAuth(true)
-                    setIsLoading(true)
-                    navigate("/queue");
-                }
-            })
+            .then(response => {
+            if(response.status === 200){
+                setIsAuth(true)
+                setIsLoading(true)
+                navigate("/queue");
+            }
+            else if(response.status === 400){
+                setIsAlert(true)
+                setAlertMessage('Minimum name size is 3')
+            }
+
+            else if(response.status === 403){
+                setIsAlert(true)
+                setAlertMessage('This name is already taken!')
+            }
+        })
     }
     return (
         <Form className="login-form position-absolute top-50 start-50 translate-middle">
             {isAlert ?
-                <Alert key={"danger"} variant={"danger"}>
-                    This name is already taken!
-                </Alert>
+                <Alert key={"danger"} variant={"danger"}>{alertMessage}</Alert>
                 : null
             }
             <Form.Group className="mb-3" controlId="formBasicEmail">
